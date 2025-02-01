@@ -1,15 +1,16 @@
 <?php
 
-namespace Axn\EloquentAuthorable;
+namespace Veneridze\EloquentAuthorable;
 
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 
 class MigrationsMacros
 {
     public static function addColumns(Blueprint $table, $useBigInteger = true, $usersModel = null)
     {
-        $config = config('eloquent-authorable');
+        $config = Config::get('eloquent-authorable');
 
         $userModel = resolve($usersModel ?? $config['users_model']);
 
@@ -48,14 +49,14 @@ class MigrationsMacros
 
     public static function dropColumns(Blueprint $table)
     {
-        $createdBy = config('eloquent-authorable.created_by_column_name');
+        $createdBy = Config::get('eloquent-authorable.created_by_column_name');
 
         if (Schema::hasColumn($table->getTable(), $createdBy)) {
             $table->dropForeign([$createdBy]);
             $table->dropColumn($createdBy);
         }
 
-        $updatedBy = config('eloquent-authorable.updated_by_column_name');
+        $updatedBy = Config::get('eloquent-authorable.updated_by_column_name');
 
         if (Schema::hasColumn($table->getTable(), $updatedBy)) {
             $table->dropForeign([$updatedBy]);

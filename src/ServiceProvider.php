@@ -1,40 +1,37 @@
 <?php
+namespace Veneridze\EloquentAuthorable;
 
-namespace Axn\EloquentAuthorable;
 
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
+use Veneridze\EloquentAuthorable\MigrationsMacros;
 
-class ServiceProvider extends BaseServiceProvider
+class ServiceProvider extends PackageServiceProvider
 {
-    public function register()
+    public function configurePackage(Package $package): void
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/eloquent-authorable.php', 'eloquent-authorable');
+        $package
+            ->name('laravel-eloquent-authorable')
+            ->hasConfigFile('eloquent-authorable')
+            ->publishesServiceProvider('ServiceProvider')
+            ->hasInstallCommand(function (InstallCommand $command) {
+                $command
+                    ->publishConfigFile();
+            });
     }
 
-    public function boot()
+    public function packageBooted(): void
     {
         if ($this->app->runningInConsole()) {
-            $this->configurePublishing();
-            $this->registerMigrationsMacros();
+            Blueprint::macro('addAuthorableColumns', function ($useBigInteger = true, $usersTableName = null) {
+                MigrationsMacros::addColumns($this, $useBigInteger, $usersTableName);
+            });
+
+            Blueprint::macro('dropAuthorableColumns', function () {
+                MigrationsMacros::dropColumns($this);
+            });
         }
-    }
-
-    private function configurePublishing()
-    {
-        $this->publishes([
-            __DIR__.'/../config/eloquent-authorable.php' => config_path('eloquent-authorable.php'),
-        ], 'config');
-    }
-
-    private function registerMigrationsMacros()
-    {
-        Blueprint::macro('addAuthorableColumns', function ($useBigInteger = true, $usersTableName = null) {
-            MigrationsMacros::addColumns($this, $useBigInteger, $usersTableName);
-        });
-
-        Blueprint::macro('dropAuthorableColumns', function () {
-            MigrationsMacros::dropColumns($this);
-        });
     }
 }

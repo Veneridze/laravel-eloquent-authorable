@@ -1,6 +1,9 @@
 <?php
 
-namespace Axn\EloquentAuthorable;
+namespace Veneridze\EloquentAuthorable;
+
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Config;
 
 trait AuthorableTrait
 {
@@ -50,7 +53,7 @@ trait AuthorableTrait
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function createdBy()
+    public function createdBy(): BelongsTo
     {
         $relation = $this->belongsTo($this->getUsersModel(), $this->determineCreatedByColumnName());
 
@@ -66,7 +69,7 @@ trait AuthorableTrait
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function updatedBy()
+    public function updatedBy(): BelongsTo
     {
         $relation = $this->belongsTo($this->getUsersModel(), $this->determineUpdatedByColumnName());
 
@@ -100,7 +103,7 @@ trait AuthorableTrait
     protected function getUsersModel()
     {
         if (!isset($this->authorable['users_model'])) {
-            return config('eloquent-authorable.users_model');
+            return Config::get('eloquent-authorable.users_model');
         }
 
         return $this->authorable['users_model'];
@@ -114,7 +117,7 @@ trait AuthorableTrait
     protected function getGuardName()
     {
         if (!isset($this->authorable['guard'])) {
-            return config('eloquent-authorable.guard');
+            return Config::get('eloquent-authorable.guard');
         }
 
         return $this->authorable['guard'];
@@ -128,7 +131,7 @@ trait AuthorableTrait
     protected function shouldSetAuthorWhenCreating()
     {
         if (!isset($this->authorable['set_author_when_creating'])) {
-            return config('eloquent-authorable.set_author_when_creating');
+            return Config::get('eloquent-authorable.set_author_when_creating');
         }
 
         return $this->authorable['set_author_when_creating'];
@@ -142,7 +145,7 @@ trait AuthorableTrait
     protected function shouldSetAuthorWhenUpdating()
     {
         if (!isset($this->authorable['set_author_when_updating'])) {
-            return config('eloquent-authorable.set_author_when_updating');
+            return Config::get('eloquent-authorable.set_author_when_updating');
         }
 
         return $this->authorable['set_author_when_updating'];
@@ -159,7 +162,7 @@ trait AuthorableTrait
             return $this->authorable['created_by_column_name'];
         }
 
-        return config('eloquent-authorable.created_by_column_name');
+        return Config::get('eloquent-authorable.created_by_column_name');
     }
 
     /**
@@ -173,7 +176,7 @@ trait AuthorableTrait
             return $this->authorable['updated_by_column_name'];
         }
 
-        return config('eloquent-authorable.updated_by_column_name');
+        return Config::get('eloquent-authorable.updated_by_column_name');
     }
 
     /**

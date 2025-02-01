@@ -1,30 +1,37 @@
 {
-    "name": "axn/laravel-eloquent-authorable",
-    "description": "Support for created_by and updated_by fields in Eloquent models.",
-    "homepage": "https://github.com/AXN-Informatique/laravel-eloquent-authorable",
+    "name": "veneridze/laravel-eloquent-authorable",
+    "description": "Support for created_by and updated_by fields in Eloquent models. for laravel 8-11",
+    "homepage": "https://github.com/Veneridze/laravel-eloquent-authorable",
     "support": {
-        "issues": "https://github.com/AXN-Informatique/laravel-eloquent-authorable/issues"
+        "issues": "https://github.com/Veneridze/laravel-eloquent-authorable/issues"
     },
     "authors": [
         {
             "name": "AXN Informatique",
             "email": "developpement@axn.fr"
+        },
+        {
+            "name": "Kopaev",
+            "email": "viacheslav.kopaev@yandex.ru"
         }
     ],
     "license": "MIT",
     "require": {
         "php": "^8.0",
-        "illuminate/support": "^8.0 || ^9.0 || ^10.0"
+        "illuminate/support": "^8.0 || ^9.0 || ^10.0 || ^11.0",
+        "illuminate/database": "^8.0 || ^9.0 || ^10.0 || ^11.0",
+        "illuminate/auth": "^8.0 || ^9.0 || ^10.0 || ^11.0",
+        "spatie/laravel-package-tools": "^1.18"
     },
     "autoload": {
         "psr-4": {
-            "Axn\\EloquentAuthorable\\": "src/"
+            "Veneridze\\EloquentAuthorable\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Axn\\EloquentAuthorable\\ServiceProvider"
+                "Veneridze\\EloquentAuthorable\\ServiceProvider"
             ]
         }
     }

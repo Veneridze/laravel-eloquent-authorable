@@ -26,7 +26,7 @@ Usage
 To add functionality to a model, it is necessary that:
 
 1. The related table has the concerned fields (by default `created_at` and `updated_at`)
-2. The model use the trait `Axn\EloquentAuthorable\Authorable`
+2. The model use the trait `Veneridze\EloquentAuthorable\Authorable`
 
 
 ### Database columns
@@ -97,7 +97,7 @@ Schema::create('posts', function (Blueprint $table) {
 
 ```php
 
-use Axn\EloquentAuthorable\AuthorableTrait;
+use Veneridze\EloquentAuthorable\AuthorableTrait;
 use Illuminate\Database\Eloquent\Model
 
 class Post extends Model
@@ -144,7 +144,7 @@ There are two ways to set this feature:
 First initialise the config file in your application by running this command:
 
 ```sh
-php artisan vendor:publish --provider="Axn\EloquentAuthorable\ServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Veneridze\EloquentAuthorable\ServiceProvider" --tag="config"
 ```
 
 Then, when published, the `config/eloquent-authorable.php` config file will contain the default values that you can then customize.
@@ -169,7 +169,7 @@ You can specify different ones like this:
 
 ```php
 
-use Axn\EloquentAuthorable\AuthorableTrait;
+use Veneridze\EloquentAuthorable\AuthorableTrait;
 use Illuminate\Database\Eloquent\Model
 
 class Post extends Model
@@ -193,7 +193,7 @@ You can specify different column names for a model like this:
 
 ```php
 
-use Axn\EloquentAuthorable\AuthorableTrait;
+use Veneridze\EloquentAuthorable\AuthorableTrait;
 use Illuminate\Database\Eloquent\Model
 
 class Post extends Model
@@ -215,7 +215,7 @@ You can disable the feature like this:
 
 ```php
 
-use Axn\EloquentAuthorable\AuthorableTrait;
+use Veneridze\EloquentAuthorable\AuthorableTrait;
 use Illuminate\Database\Eloquent\Model
 
 class Post extends Model
@@ -236,7 +236,7 @@ class Post extends Model
 
 ```php
 
-use Axn\EloquentAuthorable\AuthorableTrait;
+use Veneridze\EloquentAuthorable\AuthorableTrait;
 use Illuminate\Database\Eloquent\Model
 
 class Post extends Model
