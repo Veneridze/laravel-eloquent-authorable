@@ -2,6 +2,7 @@
 
 namespace Veneridze\EloquentAuthorable;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Config;
 
@@ -78,6 +79,15 @@ trait AuthorableTrait
         }
 
         return $relation;
+    }
+    /**
+     * Summary of isOwner
+     * @param Model $user
+     * @return bool
+     */
+    public function isOwner(Model $user)
+    {
+        return $this->created_by == $user->id && $user::class == $this->getUsersModel();
     }
 
     /**
